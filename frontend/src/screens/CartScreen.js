@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { Link,useLocation,useNavigate,useParams  } from 'react-router-dom'
+import { Link,useLocation,useNavigate,useParams,useHistory   } from 'react-router-dom'
 import { useDispatch,useSelector  } from 'react-redux'
 import { Row,Col,ListGroup,Image,Form,Button,Card, ListGroupItem } from 'react-bootstrap'
 
@@ -15,6 +15,10 @@ function CartScreen() {
 
   const dispatch=useDispatch()
   const history =useNavigate()
+ 
+
+  const userLogin = useSelector(state => state.userLogin);
+  const {userInfo} = userLogin
 
   const cart = useSelector(state => state.cart)
   const {cartItems} = cart
@@ -35,7 +39,11 @@ const remvoeFromCartHandler = (id)=>{
 
 
  const checkoutHandler = () =>{
-    history('/login?redirect=shipping')
+    if(!userInfo){
+      history('/login?redirect=/shipping')
+    }else{
+      history('/shipping')
+    }
  }
 
 
