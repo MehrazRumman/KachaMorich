@@ -29,39 +29,16 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         for k,v in serializer.items():
             data[k] = v
 
-
-       
-        
         return data
     
-
-
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Create your views 
 
 @api_view(['POST'])
 def registerUser(request):
     data = request.data
   
-
-
     try:
         user = User.objects.create(
             first_name = data['name'],
@@ -77,6 +54,27 @@ def registerUser(request):
         return Response(message,status= status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserProfile(request):
+    user = request.user
+    serializer = UserSerializerWithToken(user,many=False)
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+
+    if data['password'] != '':
+        user.password = make_password(data['password'])
+    user.save()    
+
+    return Response(serializer.data)
+
+
+
+
+
+
 
 
 
@@ -85,7 +83,6 @@ def registerUser(request):
 @permission_classes([IsAuthenticated])
 def getUserProfile(request):
     user = request.user
-
     serializer = UserSerializer(user,many=False)
     return Response(serializer.data)
 
@@ -97,6 +94,30 @@ def getUsers(request):
     users =  User.objects.all()
     serializer = UserSerializer(users,many=True)
     return Response(serializer.data)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
