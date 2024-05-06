@@ -16,7 +16,7 @@ function PaymentScreen() {
     const {shippingAddress} = cart 
     const dispatch = useDispatch()
    // user select this 
-    const [paymentMethod,setPaymentMethod] = useState('PayPal')
+    const [paymentMethod,setPaymentMethod] = useState('Bkash')
    // const {paymentMethodB,setPaymentMethodB} = useState('Bkash')
 
 
@@ -48,8 +48,8 @@ function PaymentScreen() {
                 <Col>
                 <Form.Check
                 type = 'radio'
-                label = 'Paypal or Bkash'
-                id = 'paypal'
+                label = 'Bkash'
+                id = 'Bkash'
                 name = 'paymentMethod'
                 checked
                 onChange={(e)=> setPaymentMethod(e.target.value)}
