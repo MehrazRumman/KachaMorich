@@ -5,18 +5,19 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { useDispatch,useSelector, } from 'react-redux'
 import FormContainer from '../components/FormContainer'
-import { getUserDetails  } from '../actions/userActions'
+import { getUserDetails , updateUser } from '../actions/userActions'
 import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider'
+import { USER_UPDATE_RESET  } from '../constants/userConstants'
 
 
 function EditUserScreen() {
-    c
+    
     
     const [name , setName  ] = useState('')
     
     const [email , setEmail ] = useState('')
   
-    const [isAdmin , setAdmin ] = useState(false)
+    const [isAdmin , setIsAdmin ] = useState(false)
 
     const {id} = useParams();
     
@@ -29,17 +30,33 @@ function EditUserScreen() {
     const userDetails = useSelector(state => state.userDetails )
     
     const {error,loading,user } = userDetails
+
+
+    const userUpdate = useSelector(state => state.userUpdate )
+    
+    const {error:errorUpdate,loading:loadingUpdate,success:successUpdate} = userUpdate
     
     useEffect( ()=>{
+        if(successUpdate){
+            dispatch({type: USER_UPDATE_RESET})
+            history('/admin/userlist')
+        }else{
+            if(!user.name || user._id !== Number( id) ){
+                dispatch(getUserDetails(id))
+    
+            }else{
+                setName(user.name)
+                setEmail(user.email)
+                setIsAdmin(user.isAdmin)
+            }
+        }
         
-    },[] )
+    },[user,id, successUpdate, history, ] )
     
     
     const submitHandler = (e) => {
         e.preventDefault ()
-          
-        
-        
+        dispatch(updateUser({_id : user._id, name , email, isAdmin}))  
     }
     
     
@@ -52,8 +69,23 @@ function EditUserScreen() {
     
     
     return (
+        <div>
+
+        <Link to='/admin/userlist'>
+        Go Back
+        </Link>
+
         <FormContainer>
         <h1>Edit User</h1>
+        {loadingUpdate && <Loader/> }
+        {errorUpdate &&  <Message variant='danger'>{errorUpdate}</Message> }
+
+
+        {loading ? <Loader/> : error  ? <Message variant='danger'>{error}</Message>
+         : (
+
+       
+
 
         <Form onSubmit = {submitHandler} >
         <Form.Group controlId='name'>
@@ -61,7 +93,7 @@ function EditUserScreen() {
         Name 
         </Form.Label>
         <Form.Control
-        required 
+        
         type = 'Name'
         placeholder = 'Enter Name'
         value = {name}
@@ -75,7 +107,7 @@ function EditUserScreen() {
         Email Address
         </Form.Label>
         <Form.Control
-        required
+        
         type = 'email'
         placeholder = 'Enter Email'
         value = {email}
@@ -84,54 +116,34 @@ function EditUserScreen() {
         </Form.Control>
         </Form.Group>
         
-        <Form.Group controlId='Password'>
-        <Form.Label>
-        Password
-        </Form.Label>
-        <Form.Control
-        required
-        type = 'password'
-        placeholder = 'Enter Password'
-        value = {password}
-        onChange = {(e) => setPassword(e.target.value)}
+        <Form.Group controlId='isAdmin'>
+       
+        <Form.Check
+    
+        type = 'checkbox'
+        label = 'Is Admin'
+        checked = {isAdmin}
+        onChange = {(e) => setIsAdmin(e.target.checked)}
         >
         
-        </Form.Control>
+        </Form.Check>
         
         </Form.Group>
         
-        <Form.Group controlId='PasswordConfirm'>
-        <Form.Label>
-        Confirm  Password
-        </Form.Label>
-        <Form.Control
-        required
-        type = 'password'
-        placeholder = 'Confirm Password'
-        value = {confirmPassword}
-        onChange = {(e) => setConfirmPassword(e.target.value)}
-        >
-        
-        </Form.Control>
-        
-        </Form.Group>
+       
         
         <Button type = 'submit' variant='primary' style={{ marginBottom: '20px' }}>
-        Register
+        Update
         
         </Button>
         </Form>
         
-        
-        <Row className='py-3'>
-        <Col>
-        Have an account  ? 
-        <Link 
-        to = {redirect? `/login?redirect=${redirect}` : '/login' }>Sign In</Link>
-        </Col>
-        
-        </Row>
+    )}
+    
         </FormContainer>
+
+        </div>
+   
     )
 }
 
