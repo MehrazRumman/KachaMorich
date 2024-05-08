@@ -180,6 +180,7 @@ function ProfileScreen() {
                             <th>Total</th>
                             <th>Paid</th>
                             <th>Delivered</th>
+                            <th></th>
                             
 
                         </tr>
