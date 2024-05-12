@@ -10,7 +10,7 @@ import { useBootstrapBreakpoints } from 'react-bootstrap/esm/ThemeProvider'
 import { USER_UPDATE_RESET  } from '../constants/userConstants'
 
 
-function EditUserScreen() {
+function UserEditScreen() {
     
     
     const [name , setName  ] = useState('')
@@ -147,7 +147,7 @@ function EditUserScreen() {
     )
 }
 
-export default EditUserScreen
+export default UserEditScreen
 
 
 
