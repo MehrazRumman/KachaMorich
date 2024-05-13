@@ -9,8 +9,8 @@ import { saveShippingAddress } from '../actions/cartActions'
 
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getOrderDetails } from '../actions/orderActions'
-
+import { getOrderDetails , deliverOrder} from '../actions/orderActions'
+import { ORDER_DELIVER_RESET } from '../constants/orderConstants'
 
 
 
@@ -22,6 +22,11 @@ function OrderScreen() {
    const orderDetails = useSelector(state => state.orderDetails)
    const {order,error,loading} = orderDetails
 
+   const orderDeliver = useSelector(state => state.orderDeliver)
+   const {loading: loadingDeliver , success:successDeliver } = orderDeliver
+   
+   const userLogin = useSelector(state => state.userLogin)
+   const {userInfo} = userLogin
 
    const history = useNavigate()
 
@@ -36,15 +41,24 @@ function OrderScreen() {
 
     
    useEffect(()=>{
-    if(!order || order._id !== Number(id)){
-        dispatch(getOrderDetails(id))
+    if(!userInfo){
+        history('/login')
     }
 
-   },[dispatch,order,id])
+
+    if(!order || order._id !== Number(id) || successDeliver ){
+        dispatch({type : ORDER_DELIVER_RESET})
+        dispatch(getOrderDetails(id))
+        
+    }
+
+   },[dispatch,order,id, successDeliver])
 
 
   
-
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order))
+  }
 
 
 
@@ -195,6 +209,21 @@ function OrderScreen() {
                         </ListGroup.Item>     
                     </ListGroup>
                     <Button id="bKash_button" disabled="disabled">Pay With bKash</Button>
+                
+                {loadingDeliver && <Loader/>}
+                {userInfo && userInfo.isAdmin && !order.isDelivered && (
+                  <ListGroup.Item>
+                    <Button
+                    type = 'button'
+                    className='btn btn-block'
+                    onClick={deliverHandler}
+                    >
+                        Mark As Deliver
+                    </Button>
+
+                  </ListGroup.Item>  
+                ) }
+               
                 </Card>
             </Col>
         </Row>
