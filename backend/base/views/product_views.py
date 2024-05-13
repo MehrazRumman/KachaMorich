@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from base.models import Product , Review
 from base.serializers import ProductSerializer
 
-
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 
 
@@ -18,28 +18,53 @@ from rest_framework import status
 
 @api_view(['GET'])
 def getProducts(request):
-    
+    page = int()
+    products =  Product.objects.all()
     query = ""
+    paginator = Paginator(products,10)
     if   request.query_params.get('keyword') is not None:
         query = request.query_params.get('keyword')
     
     if query == 'null' :
        
-        products =  Product.objects.all()
+        
         serializer = ProductSerializer(products,many=True)
        
     else :
         products =  Product.objects.filter(name__icontains=query)
+        page = request.query_params.get('page')
+        paginator = Paginator(products,10)
+
+        try:
+            products = paginator.page(page)
+        except PageNotAnInteger :
+            products = paginator.page(1)
+        except EmptyPage:
+            products = paginator.page(paginator.num_pages)
+
+
+        if page == None:
+            page = 1
+
+        page = int(page)        
+
+
+
         serializer = ProductSerializer(products,many=True)
         
-    return Response(serializer.data)
+    return Response({'products':serializer.data, 'page':page,'pages':paginator.num_pages})
 
 
 
 
 
 
-
+@api_view(['GET'])
+def getTopProducts(requests):
+     products = Product.objects.filter(rating__gt=4).order_by('-rating')[0:5]
+     serializer = ProductSerializer(products,many=True)
+     return Response(serializer.data)
+     
 
 
 

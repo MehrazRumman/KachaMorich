@@ -64,27 +64,19 @@ function OrderListScreen() {
                              
                              <td>{order._id}</td>
                              <td>{order.user && order.user.name }</td>
-                             <td>{order.createdAt.substring(0,10)}</td>
+                             <td>{order.createdAt?.substring(0,10)}</td>
                              <td> ৳{order.totalPrice}</td>
 
                              <td> {order.isPaid}
                                 <i className='fas fa-check' style={{   color:'red' }} > </i>
-                                  
-                            
                              </td>
 
 
-                             <td>{order.isDelivered ? (
-                                 
-                                order.deliveredAt?.substring(0,10)
-                          
-                                
-                             ):(
-                                <i className='fas fa-check' style={{   color:'red' }} > </i>
-
-                             )}
-                             </td>
-
+                             <td> 
+                                {order.isDelivered ? order.deliveredAt?.substring(0,10) : (
+                                    <i className='fas fa-times' style={{color:'red'}} ></i>
+                                )}
+                                     </td>
 
 
                              <td>
@@ -92,7 +84,6 @@ function OrderListScreen() {
                          
                                     <Button variant='light' className='btn-sm'>
                                         Details
-                                        
                                     </Button>
                                 </LinkContainer>
 

@@ -13,12 +13,12 @@ function SearchBox() {
     e.preventDefault()
    
     if(keyword.trim()){
-        history(`/?keyword=${keyword}`)
+        history(`/?keyword=${keyword}&page=1`)
        
 
     }else{
       
-        history(history.location.pathname)
+        history(this.props.history.location.pathname)
     }
   }  
   return (

@@ -62,6 +62,9 @@ def addOrderItems(request):
 
 
 
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getMyOrders(request):
@@ -118,7 +121,7 @@ def updateOrderToPaid(request, pk):
 def updateOrderToDelivered(request, pk):
      order = Order.objects.get(_id = pk)
      order.isDelivered = True
-     order.deliveredAt = datetime.now()
+     order.devliveredAt = datetime.now()
      order.save()
      return Response('Order was Delivered')
 

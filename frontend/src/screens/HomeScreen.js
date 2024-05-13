@@ -5,12 +5,13 @@ import Loader from '../components/Loader'
 import { useDispatch ,useSelector} from 'react-redux'
 import { listProducts } from '../actions/productAction'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 function HomeScreen() {
   
   const dispatch = useDispatch()
   const productList = useSelector(state => state.productList)
-  const {error,loading, products } = productList
+  const {error,loading, products, page,pages  } = productList
 
   const [searchParams] = useSearchParams();
   let keyword = searchParams.get('keyword');
@@ -32,6 +33,7 @@ function HomeScreen() {
         loading ? <Loader/>
         : error ? <Message variant='danger' >{error}</Message>
         : 
+        <div> 
         <Row>
            {
             products.map(product=>(
@@ -42,6 +44,8 @@ function HomeScreen() {
             ))
            }
         </Row>
+        <Paginate page={page} pages={pages} keyword={keyword} />
+        </div>
       
        }
       
