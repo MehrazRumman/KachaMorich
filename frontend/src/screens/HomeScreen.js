@@ -7,6 +7,11 @@ import { listProducts } from '../actions/productAction'
 import Message from '../components/Message'
 import Paginate from '../components/Paginate'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import ProductCarousel from '../components/ProductCarousel'
+
+
+
+
 function HomeScreen() {
   
   const dispatch = useDispatch()
@@ -27,7 +32,9 @@ function HomeScreen() {
    
 
   return (
-    <div> 
+    <div>
+       {!keyword &&  <ProductCarousel/> } 
+       
         <h1>Latest Products</h1>
        {
         loading ? <Loader/>
