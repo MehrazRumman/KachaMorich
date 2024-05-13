@@ -18,8 +18,20 @@ from rest_framework import status
 
 @api_view(['GET'])
 def getProducts(request):
-    products =  Product.objects.all()
-    serializer = ProductSerializer(products,many=True)
+    
+    query = ""
+    if   request.query_params.get('keyword') is not None:
+        query = request.query_params.get('keyword')
+    
+    if query == 'null' :
+       
+        products =  Product.objects.all()
+        serializer = ProductSerializer(products,many=True)
+       
+    else :
+        products =  Product.objects.filter(name__icontains=query)
+        serializer = ProductSerializer(products,many=True)
+        
     return Response(serializer.data)
 
 
