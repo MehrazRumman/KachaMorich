@@ -20,7 +20,7 @@ An Ecommerce Website
 ## Features for Client
 - **Sign Up**: Clients can create an account on the platform by signing up.
 
-- - **Log In**: Registered clients can log in to their accounts.
+- **Log In**: Registered clients can log in to their accounts.
 
 - **Purchase a Product**: Clients can browse and purchase products from the platform.
   
