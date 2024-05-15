@@ -115,6 +115,20 @@ An Ecommerce Website
    - For deployment, you'll typically need to configure your Django app to serve static files and configure your production server (e.g., Nginx, Apache) to serve both the Django app and the React frontend.
   
 
+## Screenshots
+![Screenshot from 2024-05-15 00-54-51](https://github.com/MehrazRumman/KachaMorich/assets/59512321/58bd6594-fc55-4569-bb67-a275c995f8d9)
+![Screenshot from 2024-05-15 00-55-01](https://github.com/MehrazRumman/KachaMorich/assets/59512321/99108851-c204-428d-93f0-61fcc033bc78)
+![Screenshot from 2024-05-15 00-55-07](https://github.com/MehrazRumman/KachaMorich/assets/59512321/bcedae44-eee1-49be-949a-3d7855a5697a)
+![Screenshot from 2024-05-15 00-55-12](https://github.com/MehrazRumman/KachaMorich/assets/59512321/16fb2586-ba36-44cb-b9ed-2b316aa35034)
+![Screenshot from 2024-05-15 00-55-19](https://github.com/MehrazRumman/KachaMorich/assets/59512321/ae719bb2-d895-4157-9192-e97732ba99ac)
+![Screenshot from 2024-05-15 00-55-41](https://github.com/MehrazRumman/KachaMorich/assets/59512321/6db2d137-4a2f-4e88-adf7-f99b3603b41d)
+![Screenshot from 2024-05-15 00-56-22](https://github.com/MehrazRumman/KachaMorich/assets/59512321/63f940f9-aec1-439f-8f34-1265249b71b5)
+
+
+
+
+
+
 
      
 
