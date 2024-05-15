@@ -1,4 +1,4 @@
-# Kacha Morich
+# KachaMorich
 An Ecommerce Website
 
 
@@ -48,7 +48,26 @@ An Ecommerce Website
 
 - **Change Payment Status**: Admin can update the payment status of orders, marking them as paid, pending, refunded, etc.
 
+## Technologies USED 
 
+- **Frontend**:
+  - ReactJS
+
+- **State Management**:
+  - Redux
+
+- **Backend**:
+  - Django
+  - Django Rest Framework
+
+- **Database**:
+  - PostgreSQL
+
+- **Authentication**:
+  - JWT (JSON Web Tokens)
+
+- **API Testing**:
+  - Postman
 
 ## Setup Instructions
 
