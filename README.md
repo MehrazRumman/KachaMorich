@@ -1,5 +1,5 @@
 # KachaMorich
-An Ecommerce Website
+An Ecommerce WebApp
 
 
 ## System Design
